@@ -1,0 +1,124 @@
+using MenuDynamicalWinForm;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WpfMenuDunamicaly
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            //create mainmenu and add it to layoutGrid
+            Menu menu = new Menu();
+            layoutGrid.Children.Add(menu);
+
+            //create mainMenuItem
+            MenuItem menuItem = new MenuItem();
+            menuItem.Header = "Buy";
+            menuItem.Name = "Test" + 1;
+            menuItem.Click += ClickItem;
+            menu.Items.Add(menuItem);
+
+            //add to submenu item
+            /*
+            MenuItem subMenuItem = (MenuItem)menu.Items[0];
+            MenuItem menuItem1 = new MenuItem();
+            menuItem1.Header = "Sell";
+            menuItem1.Name = "Test" + 2;
+            subMenuItem.Items.Add(menuItem1);
+            */
+          
+            /*
+            MenuItem contexCut = new MenuItem() {
+                Header = "Cut",
+                Name = "cutItem",
+                //its example -> Source = new BitmapImage(new Uri("images/sample.png", UriKind.Relative)) 
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageChecked)) }
+            };
+            MenuItem contextCopy = new MenuItem() {
+                Header = "Copy",
+                Name = "copyItem",
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageUnchecked)) }
+            };
+            MenuItem contextDelete = new MenuItem() {
+                Header = "Delete",
+                Name = "deleteItem",
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageIndeterminate)) }
+            };
+            */
+
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.Items.Add(new MenuItem()
+            {
+                Header = "1",
+                Name = "CheckedImageItem",
+                //its example -> Source = new BitmapImage(new Uri("images/sample.png", UriKind.Relative)) 
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageChecked)),
+                }
+            });
+            contextMenu.Items.Add(new MenuItem()
+            {
+                Header = "0",
+                Name = "UnchekedImageItem",
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageUnchecked)) }
+            });
+            contextMenu.Items.Add(new MenuItem()
+            {
+                Header = "2",
+                Name = "InderterminateImageItem",
+                Icon = new Image { Source = new BitmapImage(new Uri(Constants.ImageIndeterminate)) }
+            });
+
+            // menuItem.ContextMenu = contextMenu;
+
+            MenuItem addItem = new MenuItem()
+            {
+                Header = "Добавить",
+                Name = "AddItem",
+                ContextMenu = contextMenu
+            };
+
+            MenuItem changeItem = new MenuItem()
+            {
+                Header = "Изменить",
+                Name = "ChangeItem",
+                ContextMenu = contextMenu
+            };
+
+            MenuItem deleteItem = new MenuItem()
+            {
+                Header = "Удалить",
+                Name = "DeleteItem",
+            };
+
+            menuItem.Items.Add(new MenuItem()
+            {
+                Header = "Добавить",
+                Name = "AddItem",
+                ContextMenu = contextMenu
+            });
+        }
+
+        private void ClickItem(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show((sender as MenuItem).Name);
+        }
+    }
+}
